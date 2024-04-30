@@ -1,0 +1,24 @@
+server:
+    port: 8083
+
+spring:
+    application:
+        name: myboard
+    h2:
+        console:
+            enabled: true # h2콘솔 접속
+            path: /h2-console # h2콘솔로 접속하기 위한 url
+    datasource:
+        url: jdbc:h2:~/local # db 접속 경로
+        driver-class-name: org.h2.Driver # db 접속할 때 사용하는 드라이버 클래스명
+        username: sa
+        # password:
+    jpa:
+        properties:
+          hibernate:
+              dialect: org.hibernate.dialect.H2Dialect # 스프링부트와 하이버네이트를 함께 사용할 때 필요한 설정
+              format_sql: true
+              show_sql: true
+        hibernate:
+            ddl-auto: update # 엔터티 기준으로 데이터 테이블 생성 규칙 설정. update(엔터티 변경 부분만 db에 반영).
+        open-in-view: false
