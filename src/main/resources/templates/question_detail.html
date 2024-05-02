@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" layout:decorate="~{layout}">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -9,7 +9,7 @@
 </head>
 <body>
 
-<div class="container my-3">
+<div layout:fragment="content" class="container my-3">
     <!-- 질문 -->
     <h2 class="border-bottom py-2" th:text="${question.subject}"></h2>
     <div class="card my-3">
