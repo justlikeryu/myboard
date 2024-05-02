@@ -1,0 +1,7 @@
+textarea {
+    width: 100%;
+}
+
+input[type=submit] {<!-- 버튼 상단의 마진 -->
+    margin-top: 10px;
+}
