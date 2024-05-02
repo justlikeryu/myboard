@@ -19,12 +19,18 @@
         <tbody>
         <tr th:each="question, loop : ${list}">
             <td th:text="${loop.count}"></td>
-            <td th:href="@{|/question/detail/${question.id}|}" th:text="${question.subject}"></td>
+            <td>
+                <a th:href="@{|/question/detail/${question.id}|}" th:text="${question.subject}"/>
+            </td>
             <!-- <td> [[${question.subject}]]</td> -->
             <td th:text="${#temporals.format(question.createDate, 'yyyy-MM-dd HH:mm')}"></td>
         </tr>
         </tbody>
     </table>
+
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <a th:href="@{/question/create}" class="btn btn-dark">등록</a>
+    </div>
 </div>
 </body>
 </html>
