@@ -10,11 +10,7 @@
     <h5 class="my-3 border-bottom pb-2">질문 등록</h5>
     <!-- th:object는 form의 입력항목이 QuestionForm과 연결됨을 의미-->
     <form th:action="@{/question/create}" method="post" th:object="${questionForm}">
-        <!-- #fields.hasAnyErrors(): true면 검증 실패-->
-        <div class="alert alert-danger" role="alert" th:if="${#fields.hasAnyErrors()}">
-            <!-- #fields.allErrors(): 오류 메세지 내용 -->
-            <div th:each="err:${#fields.allErrors()}" th:text="${err}"/>
-        </div>
+        <div th:replace="~{error_form::error}"></div>
 
         <div class="mb-3">
             <label for="subject" class="form-label">제목</label>

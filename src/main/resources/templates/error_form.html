@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<!-- #fields.hasAnyErrors(): true면 검증 실패-->
+<!-- #fields.allErrors(): 오류 메세지 내용 -->
+<div th:fragment="error" class="alert alert-danger" role="alert" th:if="${#fields.hasAnyErrors()}">
+    <div th:each="err : ${#fields.allErrors()}" th:text="${err}" />
+</div>
+
+</body>
+</html>
