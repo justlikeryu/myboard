@@ -1,6 +1,7 @@
 package com.example.myboard.question;
 
 import com.example.myboard.answer.Answer;
+import com.example.myboard.member.Member;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -26,4 +27,7 @@ public class Question {
 
     @OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER) //질문 하나에 답변은 여러개
     private List<Answer> answerList;
+
+    @ManyToOne//사용자 한 명에 질문은 여러개
+    private Member author;
 }

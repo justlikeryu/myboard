@@ -10,24 +10,30 @@
 <div layout:fragment="content" class="container my-3">
     <table class="table">
         <thead class="table-dark">
-        <tr>
+        <tr class="text-center">
             <th>번호</th>
-            <th>제목</th>
+            <th style="width: 50%">제목</th>
+            <th>작성자</th>
             <th>작성일시</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="question, loop : ${paging}">
+        <tr clas="text-center" th:each="question, loop : ${paging}">
             <!-- 게시물 번호 = 전체 게시물 - (현재 페이지 * 페이지당 게시물 개수) - 인덱스 -->
-            <td th:text="${paging.getTotalElements - (paging.number * paging.size) - loop.index}"></td>
-            <td>
-                <a th:href="@{|/question/detail/${question.id}|}" th:text="${question.subject}"/>
+            <td class="text-center" th:text="${paging.getTotalElements - (paging.number * paging.size) - loop.index}"></td>
+
+            <td class="text-start">
+                <!-- <td> [[${question.subject}]]</td> -->
+                <a style="color: black" th:href="@{|/question/detail/${question.id}|}" th:text="${question.subject}"/>
                 <!-- 답변 개수 표시 -->
                 <span class="text-danger small ms-2" th:if="${#lists.size(question.answerList) > 0}"
                       th:text="${#lists.size(question.answerList)}"></span>
             </td>
-            <!-- <td> [[${question.subject}]]</td> -->
-            <td th:text="${#temporals.format(question.createDate, 'yyyy-MM-dd HH:mm')}"></td>
+            <td class="text-center">
+                <span th:if="${question.author != null}" th:text="${question.author.getUsername}"/>
+            </td>
+
+            <td class="text-center" th:text="${#temporals.format(question.createDate, 'yyyy-MM-dd HH:mm')}"></td>
         </tr>
         </tbody>
     </table>
