@@ -27,6 +27,10 @@ public class SecurityConfig {
                 .formLogin((form) -> form
                         .loginPage("/member/login")
                         .defaultSuccessUrl("/"))
+                .logout((logout)->logout
+                        .logoutRequestMatcher(new AntPathRequestMatcher("/member/logout"))
+                        .logoutSuccessUrl("/")
+                        .invalidateHttpSession(true))//로그아웃 시 세션 삭제
                 .build();
     }
 
