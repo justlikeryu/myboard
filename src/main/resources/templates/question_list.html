@@ -8,6 +8,18 @@
 <body>
 
 <div layout:fragment="content" class="container my-3">
+    <div class="row my-3">
+        <div class="col-6">
+            <a th:href="@{/question/create}" class="btn btn-light">등록</a>
+        </div>
+        <div class="col-6">
+            <div class="input-group">
+                <input type="text" id="search_word" class="form-control" th:value="${word}">
+                <button class="btn btn-outline-secondary" type="button" id="searchBtn">검색</button>
+            </div>
+        </div>
+    </div>
+
     <table class="table">
         <thead class="table-dark">
         <tr class="text-center">
@@ -21,7 +33,8 @@
         <tr clas="text-center" th:each="question, loop : ${paging}">
             <!-- 게시물 번호 = 전체 게시물 - (현재 페이지 * 페이지당 게시물 개수) - 인덱스 -->
             <!-- todo 질문을 삭제해도 기존 인덱스 번호 유지하는 방법 강구할 것-->
-            <td class="text-center" th:text="${paging.getTotalElements - (paging.number * paging.size) - loop.index}"></td>
+            <td class="text-center"
+                th:text="${paging.getTotalElements - (paging.number * paging.size) - loop.index}"></td>
 
             <td class="text-start">
                 <!-- <td> [[${question.subject}]]</td> -->
@@ -43,7 +56,7 @@
     <div th:if="${!paging.isEmpty()}">
         <ul class="pagination justify-content-center">
             <li class="page-item" th:classappend="${!paging.hasPrevious} ? 'disabled'">
-                <a class="page-link" th:href="@{|?page=${paging.number-1}|}">
+                <a class="page-link" href="javascript:void(0)" th:data-page="${paging.number-1}">
                     <span>이전</span>
                 </a>
             </li>
@@ -52,20 +65,39 @@
             <li th:each="page: ${#numbers.sequence(0, paging.totalPages-1)}"
                 th:if="${page >= paging.number-5 and page <= paging.number+5}"
                 th:classappend="${page == paging.number} ? 'active'" class="page-item">
-                <a th:text="${page}" class="page-link" th:href="@{|?page=${page}|}"></a>
+                <a th:text="${page}" class="page-link" href="javascript:void(0)" th:data-page="${page}"></a>
             </li>
 
             <li class="page-item" th:classappend="${!paging.hasNext} ? 'disabled'">
-                <a class="page-link" th:href="@{|?page=${paging.number+1}|}">
+                <a class="page-link" href="javascript:void(0)" th:data-page="${paging.number+1}">
                     <span>다음</span>
                 </a>
             </li>
         </ul>
     </div>
 
-    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-        <a th:href="@{/question/create}" class="btn btn-dark">등록</a>
-    </div>
+    <!-- Get이 아닌 Post방식으로 요청하면 중복 페이지 방지를 위해 새로고침이나 뒤로가기를 했을 때 만료된 페이지가 뜨기 때문이다 -->
+    <form th:action="@{/question/list}" method="get" id="searchForm">
+        <input type="hidden" id="word" name="word" th:value="${word}">
+        <input type="hidden" id="page" name="page" th:value="${paging.number}">
+    </form>
 </div>
+
+<script layout:fragment="script" type='text/javascript'>
+    const pages = document.getElementsByClassName("page-link");
+    Array.from(pages).forEach(function (element) {
+        element.addEventListener('click', function () {
+            document.getElementById('page').value = this.dataset.page;
+            document.getElementById('searchForm').submit();
+        });
+    });
+    const searchBtn = document.getElementById("searchBtn");
+    searchBtn.addEventListener('click', function () {
+        document.getElementById('word').value = document.getElementById('search_word').value;
+        document.getElementById('page').value = 0;  // 검색 버튼을 클릭하면 0페이지부터.
+        document.getElementById('searchForm').submit();
+    });
+</script>
+
 </body>
 </html>

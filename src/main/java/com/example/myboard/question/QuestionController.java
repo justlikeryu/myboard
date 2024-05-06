@@ -24,9 +24,11 @@ public class QuestionController {
     private final MemberService memberService;
 
     @GetMapping("/list")
-    public String list(Model model, @RequestParam(value = "page", defaultValue = "0") int page) {//page값 가져오기. page가 전달되지 않으면 기본값은 0. *이유는? 페이징 기능을 구현할 때 첫 페이지 번호는 0이기 때문이다.
-        Page<Question> paging = this.questionService.getList(page);
+    public String list(Model model, @RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value = "word", defaultValue = "") String word) {//page값 가져오기. page가 전달되지 않으면 기본값은 0. *이유는? 페이징 기능을 구현할 때 첫 페이지 번호는 0이기 때문이다.
+        Page<Question> paging = this.questionService.getList(page, word);
+
         model.addAttribute("paging", paging);
+        model.addAttribute("word", word);
 
         return "question_list";
     }
