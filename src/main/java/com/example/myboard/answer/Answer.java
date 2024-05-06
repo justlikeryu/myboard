@@ -21,6 +21,8 @@ public class Answer {
 
     private LocalDateTime createDate;
 
+    private LocalDateTime modifyDate;
+
     @ManyToOne //질문 하나에 답변은 여러개
     private Question question;
 
