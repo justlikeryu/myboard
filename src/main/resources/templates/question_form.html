@@ -9,7 +9,11 @@
 <div layout:fragment="content" class="container">
     <h5 class="my-3 border-bottom pb-2">질문 등록</h5>
     <!-- th:object는 form의 입력항목이 QuestionForm과 연결됨을 의미-->
-    <form th:action="@{/question/create}" method="post" th:object="${questionForm}">
+    <!-- action 속성 없이 폼을 전송해도 ㅈ자동으로 현재 URL을 기준으로 전송된다 -->
+    <form method="post" th:object="${questionForm}">
+        <!-- action속성을 삭제하면 csrf값이 자동으로 생성되지 않으므로 추가한다 -->
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+
         <div th:replace="~{error_form::error}"></div>
 
         <div class="mb-3">
