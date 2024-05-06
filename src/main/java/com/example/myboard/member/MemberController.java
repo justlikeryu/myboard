@@ -47,7 +47,7 @@ public class MemberController {
 
             return "signup_form";
         }
-        //todo redirect시 404 not found & 로그인 버튼 클릭 시에도 동일 에러 발생.
+
         return "redirect:/";
     }
 
