@@ -20,6 +20,7 @@
         <tbody>
         <tr clas="text-center" th:each="question, loop : ${paging}">
             <!-- 게시물 번호 = 전체 게시물 - (현재 페이지 * 페이지당 게시물 개수) - 인덱스 -->
+            <!-- todo 질문을 삭제해도 기존 인덱스 번호 유지하는 방법 강구할 것-->
             <td class="text-center" th:text="${paging.getTotalElements - (paging.number * paging.size) - loop.index}"></td>
 
             <td class="text-start">
