@@ -21,4 +21,4 @@ spring:
               show_sql: true
         hibernate:
             ddl-auto: update # 엔터티 기준으로 데이터 테이블 생성 규칙 설정. update(엔터티 변경 부분만 db에 반영).
-        open-in-view: false
+        open-in-view: true

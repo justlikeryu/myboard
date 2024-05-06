@@ -43,4 +43,10 @@ public class AnswerService {
     public void delete(Answer answer){
         this.answerRepository.delete(answer);
     }
+
+    public void recommend(Answer answer, Member member){
+        answer.getRecommender().add(member);
+
+        this.answerRepository.save(answer);
+    }
 }

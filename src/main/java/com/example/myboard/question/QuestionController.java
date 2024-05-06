@@ -99,4 +99,15 @@ public class QuestionController {
 
         return "redirect:/";
     }
+
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/recommend/{id}")
+    public String questionRecommend(Principal principal, @PathVariable("id") Integer id) {
+        Question question = this.questionService.getQuestion(id);
+        Member member = this.memberService.getMember(principal.getName());
+
+        this.questionService.recommend(question, member);
+
+        return String.format("redirect:/question/detail/%s", id);
+    }
 }

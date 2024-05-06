@@ -85,4 +85,15 @@ public class AnswerController {
 
         return String.format("redirect:/question/detail/%s", answer.getQuestion().getId());
     }
+
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/recommend/{id}")
+    public String answerRecommend(Principal principal, @PathVariable("id") Integer id) {
+        Answer answer = this.answerService.getAnswer(id);
+        Member member = this.memberService.getMember(principal.getName());
+
+        this.answerService.recommend(answer, member);
+
+        return String.format("redirect:/question/detail/%s", id);
+    }
 }

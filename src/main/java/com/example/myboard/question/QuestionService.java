@@ -59,4 +59,10 @@ public class QuestionService {
     public void delete(Question question){
         this.questionRepository.delete(question);
     }
+
+    public void recommend(Question question, Member member){
+        question.getRecommender().add(member);
+
+        this.questionRepository.save(question);
+    }
 }

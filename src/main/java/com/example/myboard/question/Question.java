@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -26,6 +27,9 @@ public class Question {
     private LocalDateTime createDate;
 
     private LocalDateTime modifyDate;
+
+    @ManyToMany//하나의 질문에 여러 사람이 추천할 수 있고 한 사람은 여러 질문을 추천할 수 있다
+    Set<Member> recommender;//속성값이 중복되지 않도록 set 자료형 사용
 
     @OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER) //질문 하나에 답변은 여러개
     private List<Answer> answerList;
